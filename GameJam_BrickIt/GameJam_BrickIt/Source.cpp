@@ -22,7 +22,6 @@ int main()
         }
             //TODO
         deltaTime = clock.restart().asSeconds();
-        testObj.updateObjPosY(deltaTime);
         window.clear();
         testObj.draw(window, deltaTime);
         window.display();

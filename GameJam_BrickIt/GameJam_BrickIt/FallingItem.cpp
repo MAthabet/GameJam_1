@@ -1,7 +1,7 @@
 #include "FallingItem.h"
 
 void FallingItem::initVariables() {
-	objPositionY = FallingItemStartingPosition_Y;
+	objPositionY = FALLING_ITEM_STARTING_POSITION_Y;
 	particle = nullptr;
 	shape.setFillColor(sf::Color::White);
 	shape.setPosition(objPositionX, objPositionY);
@@ -52,12 +52,16 @@ void FallingItem::updateObjPosY(float deltaTime) {
 void FallingItem::draw(sf::RenderWindow& window, float deltaTime) {
 	if (particle) {
 	}
-	//updateObjPosY(deltaTime);
+	checkCollision();
+	if (destroyed) {
+		return;
+	}
+	updateObjPosY(deltaTime);
 	window.draw(shape);
 }
 
 void FallingItem::checkCollision() {
 	if (shape.getPosition().y >= PLATFORM_POSITION) {
-
+		destroyed = true;
 	}
 }
