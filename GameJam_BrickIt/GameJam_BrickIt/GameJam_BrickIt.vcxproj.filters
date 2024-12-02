@@ -33,6 +33,24 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratorManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FallingItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Swards.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2d.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenu.h">
@@ -48,6 +66,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratorManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FallingItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Swards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2d.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
