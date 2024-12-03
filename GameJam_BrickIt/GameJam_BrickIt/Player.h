@@ -6,10 +6,10 @@
 class Player
 {
 	void move(float dt, int dir);
-	bool isFlibbed = false;
-	void invertInput();
+	bool invertInput();
 
 public:
+	bool isFlibbed = false;
 	int health = 5;
 	int score = 0;
 	sf::RectangleShape frame;
@@ -17,7 +17,7 @@ public:
 	bool isTripped = false;
 
 	void updateCollider(sf::Vector2f pos);
-	void handleInput();
+	bool handleInput();
 	
 };
 

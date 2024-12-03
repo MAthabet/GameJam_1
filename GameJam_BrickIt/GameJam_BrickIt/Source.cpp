@@ -9,6 +9,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Main Menu");
     window.setFramerateLimit(FPS);
+    sf::View defView = window.getDefaultView();
     MainMenu mainMenu;
     mainMenu.start();
 
@@ -35,10 +36,15 @@ int main()
             }
         }
         if (isGameRunning)
+        {
             isGameRunning = game.run(&window);
+            if (isGameRunning == false)
+            {
+                mainMenu.gameOver(&window, &defView);
+            }
+        }
         else
             isGameRunning = mainMenu.loop(&window);
-                
     }
     return 0;
 }

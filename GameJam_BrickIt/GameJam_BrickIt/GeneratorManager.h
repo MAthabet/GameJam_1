@@ -9,6 +9,7 @@ public:
 	std::vector<FallingItem> items;
 	Generator(float interv);
 	void generate(sf::Texture* spritesheet);
+    void generate(int asset, sf::Texture* spritesheet);
 
 private:
 	sf::Clock clock;
