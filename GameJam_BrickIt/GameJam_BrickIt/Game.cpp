@@ -93,6 +93,8 @@ void Game::loop(sf::RenderWindow* win)
     scoreText.setFont(scoreFont);
     scoreText.setCharacterSize(32);
     scoreText.setFillColor(sf::Color::Black);
+    scoreText.setOrigin(scoreText.getGlobalBounds().width / 2.f, scoreText.getGlobalBounds().height / 2.f);
+    //scoreText.setOrigin(WINDOW_WIDTH / 2, 0);
 
     float backgroundOffsetX = 0.f;
     float backgroundWidth = static_cast<float>(BG.getSize().x);
@@ -118,6 +120,7 @@ void Game::loop(sf::RenderWindow* win)
         shader.setUniform("time", clock.getElapsedTime().asSeconds());
 
         scoreText.setString("Score: " + std::to_string(player.score));
+
         player.handleInput();
         idleANim.Update(0, 1.0f / FPS);
         player.frame.setTextureRect(idleANim.uvRect);
@@ -138,8 +141,7 @@ void Game::loop(sf::RenderWindow* win)
         float playerX = player.frame.getPosition().x;
         playerX = std::max(0.f, std::min(playerX, BG_W - player.frame.getSize().x));
 
-        float cameraX = std::max(WINDOW_WIDTH / 2.0f, std::min(playerX + 20, backgroundWidth - WINDOW_WIDTH / 2.0f));
-
+        float cameraX = std::max(WINDOW_WIDTH / 2.0f, std::min(playerX + 16, backgroundWidth - WINDOW_WIDTH / 2.0f));
         scoreText.setPosition(cameraX, 20.f);
         camera.setCenter(cameraX, WINDOW_HEIGHT / 2.0f);
 
@@ -151,6 +153,8 @@ void Game::loop(sf::RenderWindow* win)
         else
             win->draw(backGround);
         renderer.Render(win);
+        win->draw(scoreText);
+
         //to be deleted
         drawAABB(*win, player.collider.ul, player.collider.lr);
         win->draw(player.frame);
