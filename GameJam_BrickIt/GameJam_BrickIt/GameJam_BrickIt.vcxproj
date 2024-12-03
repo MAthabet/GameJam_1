@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="appConfjs.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constants.h" />
@@ -163,6 +164,9 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Vector2d.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="trippy_shader.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

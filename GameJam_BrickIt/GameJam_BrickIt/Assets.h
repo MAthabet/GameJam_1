@@ -3,24 +3,21 @@
 
 enum Assets
 {
-    h1, junk1, h2, j2, h3, j3, h4, j4, h5, j5
+    Pizza, burger, Hotdog, Carrot, Cucumber, Tomato, Shroom, Hearts, EmpHearts
 };
 
-const float PIXIL_L = 32;
-const float PLAYER_W = 26;
-const float PLAYER_H = 39;
+const float PLAYER_W = 32;
+const float PLAYER_H = 32;
 
 const sf::IntRect rectsData[] =
 {
-sf::IntRect(4 * PIXIL_L, 3 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(1 * PIXIL_L, 3 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(3 * PIXIL_L, 3 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(2 * PIXIL_L, 3 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(5 * PIXIL_L, 3 * PIXIL_L, PIXIL_L, PIXIL_L),
-
-sf::IntRect(10 * PIXIL_L, 2 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(9 * PIXIL_L, 2 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(8 * PIXIL_L, 2 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(7 * PIXIL_L, 2 * PIXIL_L, PIXIL_L, PIXIL_L),
-sf::IntRect(12 * PIXIL_L, 0 * PIXIL_L, PIXIL_L, PIXIL_L)
+sf::IntRect(0,   0, 30, 44),
+sf::IntRect(30+1,  0, 41, 40),
+sf::IntRect(71+2,  0, 37, 36),
+sf::IntRect(108+2, 0, 40, 38),
+sf::IntRect(148 + 4, 0, 41, 31),
+sf::IntRect(189 + 5, 0, 33, 29),
+sf::IntRect(222 + 6, 0, 14, 16),
+sf::IntRect(236 + 10, 0, 20, 17),
+sf::IntRect(256 + 12, 0, 20, 17)
 };

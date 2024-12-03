@@ -10,8 +10,8 @@ void Generator::generate(sf::Texture* spritesheet)
 {
 	if (clock.getElapsedTime().asSeconds() > coolDowmInterval)
 	{
-		int i = rand() % 10;
-		int x = rand() % WINDOW_WIDTH;
+		int i = rand() % 9;
+		int x = rand() % 801 + 200;
 		sf::Sprite sprite(*spritesheet, rectsData[i]);
 		items.push_back(FallingItem(ItemType(i%2), sprite));
 		items[items.size() - 1].sprite.setOrigin(rectsData[i].width,rectsData[i].height);

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MainMenu.h"
 #include "Game.h"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Main Menu");

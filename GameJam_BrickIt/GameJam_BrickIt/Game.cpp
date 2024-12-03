@@ -5,7 +5,7 @@
 #include "Renderer.h"
 #include "FallingItem.h"
 #include "Animation.h"
-
+#include "appConfjs.h"
 #include "Constants.h"
 #include "Assets.h"
 
@@ -37,6 +37,8 @@ void Game::init(sf::RenderWindow* win)
 
 void Game::loop(sf::RenderWindow* win)
 {
+    sf::View camera(sf::FloatRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT));
+
 	srand(time(0));
 	Generator generator(FOOD_COOLDOWN);
 	CollisionManager collisionMngr(&generator.items);
@@ -44,10 +46,10 @@ void Game::loop(sf::RenderWindow* win)
 
     Player player;
     sf::Texture idle;
-    if (!idle.loadFromFile("./resources/idle.png")) {
+    if (!idle.loadFromFile(animationSheet_path)) {
         printf("can not load animation sheet");
     }
-    player.frame = sf::RectangleShape (sf::Vector2f(idle.getSize().x / 3, idle.getSize().y / 1));
+    player.frame = sf::RectangleShape (sf::Vector2f(idle.getSize().x / 4, idle.getSize().y / 1));
     player.frame.setTexture(&idle);
     
     player.frame.setOrigin(player.frame.getSize().x, player.frame.getSize().y);
@@ -55,14 +57,14 @@ void Game::loop(sf::RenderWindow* win)
 
     player.collider.initCollider
     (
-        Vector2d(130, 450),
-        Vector2d(130+PLAYER_W*3, 450+PLAYER_H*3)
+        Vector2d(300, 450),
+        Vector2d(300+PLAYER_W*2.5, 450+PLAYER_H*2.5)
     );
 
     player.collider.position = Vector2d(player.frame.getPosition().x, player.frame.getPosition().y);
     //player.updateCollider(player.frame.getPosition());
 
-    Animation idleANim (&idle, sf::Vector2u(3, 1), 1/FPS);
+    Animation idleANim (&idle, sf::Vector2u(4, 1), 0.2*1.5);
     float deltaTime;
     sf::Clock clock;
     sf::Texture BG;
@@ -70,9 +72,15 @@ void Game::loop(sf::RenderWindow* win)
         printf("can not load bg.png");
     }
     sf::Sprite backGround(BG);
+
     sf::Texture spritesheet;
-    if (!spritesheet.loadFromFile("./resources/sprites.png")) {
+    if (!spritesheet.loadFromFile(spritesheet_path)) {
         printf("can not load sprites.png");
+    }
+
+    sf::Shader shader;
+    if (!shader.loadFromFile("trippy_shader.frag", sf::Shader::Fragment)) {
+        printf("can not load trippy_shader.frag");
     }
 
     while (win->isOpen())
@@ -92,8 +100,8 @@ void Game::loop(sf::RenderWindow* win)
                 }
             }
         }
-        
         generator.generate(&spritesheet);
+        shader.setUniform("time", clock.getElapsedTime().asSeconds());
 
         player.handleInput();
         idleANim.Update(0, 1.0f/FPS);
@@ -105,17 +113,29 @@ void Game::loop(sf::RenderWindow* win)
             player.score += 10;
             break;
         case junk:
-            player.health--;;
+            player.health--;
+            player.isTripped = true;
             break;
         }
         if (player.health < 1)
             break;
+
+        float playerX = player.collider.lr.x;
+        float cameraX = playerX;
+
+        cameraX = std::max(cameraX,  WINDOW_HEIGHT / 2.0f);
+        cameraX = std::min(cameraX, BG_W - WINDOW_WIDTH / 2.0f);
+
+        camera.setCenter(cameraX, WINDOW_HEIGHT / 2.0f);
+        win->setView(camera);
         win->clear();
+        if(player.isTripped)
+        win->draw(backGround, &shader);
+        else
         win->draw(backGround);
         renderer.Render(win);
         //to be deleted
         drawAABB(*win, player.collider.ul, player.collider.lr);
-        player.frame.setScale(3,3);
         win->draw(player.frame);
         win->display();
     }
