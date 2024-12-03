@@ -5,6 +5,7 @@ void Player::move(float dt, int dir)
 	frame.move(dir * PLAYER_SPEED * dt, 0);
 	sf::Vector2f playerPos = frame.getPosition();
 	//playerPos.x = std::clamp(playerPos.x, 0.0f, BG_W - 26*3);
+    playerPos.x = std::max(frame.getSize().x, std::min(playerPos.x, BG_W));
 	frame.setPosition(playerPos);
 	updateCollider(frame.getPosition());
 }
