@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "GeneratorManager.h"
 #include "CollisionManager.h"
-#include "SFML/Audio.hpp"
 #include "Player.h"
 #include "Renderer.h"
 #include "FallingItem.h"
@@ -13,11 +12,6 @@
 
 bool Game::run(sf::RenderWindow* win)
 {
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("./resources/Audio/gameStart.mp3");
-    sf::Sound start;
-    start.setBuffer(buffer);
-    start.play();
 	init(win);
 	loop(win);
     if (end(win)) loop(win);
@@ -38,12 +32,6 @@ void Game::loop(sf::RenderWindow* win)
 	CollisionManager collisionMngr(&generator.items);
 	Renderer renderer(&generator.items);
 
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("./resources/Audio/Bite.mp3");
-
-    sf::Sound bite;
-    bite.setBuffer(buffer);
-    bite.setPlayingOffset(sf::seconds(1.2f));
     Player player;
 
     sf::Texture idle;
@@ -107,23 +95,6 @@ void Game::loop(sf::RenderWindow* win)
         printf("can not load trippy_shader.frag");
     }
 
-    sf::Font scoreFont;
-    if (!scoreFont.loadFromFile("./resources/Fonts/KarmaticArcade.ttf")) {
-        std::cerr << "Error: Could not load font!" << std::endl;
-    }
-
-    sf::Text scoreText; 
-    scoreText.setFont(scoreFont); 
-    scoreText.setCharacterSize(32); 
-    scoreText.setFillColor(sf::Color::Black); 
-    scoreText.setOrigin(scoreText.getGlobalBounds().width / 2.f, scoreText.getGlobalBounds().height / 2.f); 
-
-    float backgroundOffsetX = 0.f;
-    float backgroundWidth = static_cast<float>(BG.getSize().x);
-
-
-    sf::Clock tripClk;
-
     while (win->isOpen())
     {
         // Check for all window events
@@ -145,7 +116,6 @@ void Game::loop(sf::RenderWindow* win)
         //shroomGenerator.generate(&spritesheet);
         generator.generate(rand() % 7, &spritesheet);
         shader.setUniform("time", clock.getElapsedTime().asSeconds());
-        scoreText.setString("Score: " + std::to_string(player.score));
 
         if (player.handleInput())
         {
@@ -194,34 +164,25 @@ void Game::loop(sf::RenderWindow* win)
         {
         case healthy:
             player.score += 10;
-            bite.setPlayingOffset(sf::seconds(1.2f));
-            bite.play();
             break;
         case junk:
             player.health--;
-            bite.setPlayingOffset(sf::seconds(1.2f));
-            bite.play();
             break;
         case shroom:
             player.isTripped = true;
-            bite.setPlayingOffset(sf::seconds(1.2f));
-            bite.play();
             player.score += 50;
-            tripClk.restart();
             break;
         }
         if (player.health < 1)
             break;
-        if (player.isTripped)
-            if (tripClk.getElapsedTime().asSeconds() > 5)
-                player.isTripped = false;
-        float playerX = player.frame.getPosition().x;
-        playerX = std::max(0.f, std::min(playerX, BG_W - player.frame.getSize().x));
 
-        float cameraX = std::max(WINDOW_WIDTH / 2.0f, std::min(playerX + 16, backgroundWidth - WINDOW_WIDTH / 2.0f));
-        scoreText.setPosition(cameraX, 20.f);
+        float playerX = player.collider.lr.x;
+        float cameraX = playerX;
+
+        cameraX = std::max(cameraX,  WINDOW_HEIGHT / 2.0f);
+        cameraX = std::min(cameraX, BG_W - WINDOW_WIDTH / 2.0f);
+
         camera.setCenter(cameraX, WINDOW_HEIGHT / 2.0f);
-
         win->setView(camera);
         win->clear();
         if(player.isTripped)
@@ -229,16 +190,19 @@ void Game::loop(sf::RenderWindow* win)
         else
         win->draw(backGround);
         player.frame.setScale(PLAYER_SCALE, PLAYER_SCALE);
+        renderer.Render(win);
         win->draw(player.frame);
-        win->draw(scoreText);
-        win->setView(win->getDefaultView());
         for (int i = 0; i < player.health; i++)
         {
-            empHeart.setPosition(20 + i * 25, 30);
+            win->draw(heart);
+            heart.setPosition(0+i*20, 0);
+        }
+        win->setView(win->getDefaultView());
+        for (int i = player.health; i < 5; i++)
+        {
+            empHeart.setPosition(player.health*20 + i * 20, 0);
             win->draw(empHeart);
         }
-        win->setView(camera);
-        renderer.Render(win);
             win->display();
             win->setView(camera);
         if (player.health <= 0)
@@ -250,13 +214,6 @@ void Game::loop(sf::RenderWindow* win)
 
 bool Game::end(sf::RenderWindow* win)
 {
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("./resources/Audio/gameOver.mp3");
-    sf::Sound gameOver;
-    gameOver.setBuffer(buffer);
-
-    gameOver.play();
-    sf::sleep(sf::milliseconds(3000));
     return false;
 }
 

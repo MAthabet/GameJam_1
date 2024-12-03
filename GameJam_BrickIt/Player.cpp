@@ -2,11 +2,12 @@
 
 void Player::move(float dt, int dir)
 {
-    frame.move(dir * PLAYER_SPEED * dt, 0);
-    sf::Vector2f playerPos = frame.getPosition();
-    playerPos.x = std::max(0.f, std::min(playerPos.x, BG_W - frame.getSize().x));
-    frame.setPosition(playerPos);
-    updateCollider(frame.getPosition());
+	frame.move(dir * PLAYER_SPEED * dt, 0);
+	sf::Vector2f playerPos = frame.getPosition();
+	//playerPos.x = std::clamp(playerPos.x, 0.0f, BG_W - 26*3);
+    printf("");
+	frame.setPosition(playerPos);
+	updateCollider(frame.getPosition());
 }
 
 bool Player::handleInput()
