@@ -1,18 +1,18 @@
 #pragma once
 #include "Particle.h"
+#include "FallingItem.h"
 //#include "Collider.h"
 
 using namespace std;
 
 class CollisionManager
 {
-
 private:
-	std::vector<Particle*> particles;
+	void bouncyCollision(FallingItem* item);
+	std::vector<FallingItem>* items;
 public:
-	void addParticle(Particle* particle);
+	//void addItem(FallingItem* item);
 	void Update(float deltaTime);
-//void elasticCollision(Particle* i, Particle* j);
-
-	static const Vector2d gravity;
+	int checkCollisionWith(Collider* collider);
+	CollisionManager(std::vector<FallingItem>* items);
 };

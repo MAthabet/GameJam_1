@@ -2,32 +2,33 @@
 
 void Player::move(float dt, int dir)
 {
-	position.x = position.x + (dt * dir);
-	position.y = position.y;
-	shape.setPosition(position);
+	frame.move(dir * PLAYER_SPEED * dt, 0);
+	updateCollider(frame.getPosition());
 }
 
-
-
-void Player::updateHealth(bool isCollided) {
-	if (isCollided) {
-		if (health > 0) {
-
-			health -= 1;
-		}
-		else {
-			died = true;
-		}
-	}
-}
-
-bool Player::isFlipping(int dir)
+void Player::handleInput()
 {
-	if (dir == 1) {
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+    if (isTripped)
+    {
+        invertInput();
+        return;
+    }
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		move(1 / FPS, 1);
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		move(1 / FPS, -1);
 }
+
+void Player::invertInput()
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		move(1 / FPS, -1);
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+		move(1 / FPS, 1);
+}
+
+void Player::updateCollider(sf::Vector2f pos)
+{
+	collider.updatePosition(Vector2d(pos.x,pos.y));
+}
+

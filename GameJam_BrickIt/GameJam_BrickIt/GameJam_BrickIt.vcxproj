@@ -133,6 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="ButtonsConfig.h" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="FallingItem.cpp" />
@@ -147,24 +149,20 @@
     <ClCompile Include="Vector2d.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="FallingItem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GeneratorManager.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Vector2d.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shroom.frag" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="snake.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

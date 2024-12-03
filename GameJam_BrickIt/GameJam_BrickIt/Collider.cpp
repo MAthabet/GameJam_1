@@ -1,17 +1,21 @@
 #include "Collider.h"
 
-bool Collider::checkCollision(Collider* other)
+void Collider::initCollider(Vector2d ul, Vector2d lr)
 {
-    return (r + other->r) > (center - other->center).getMagnitude();
+	this->ul = ul;
+	this->lr = lr;
+	position = lr;
 }
 
 void Collider::updatePosition(Vector2d position)
 {
-    center = position;
+	ul += position - this->position;
+	lr += position - this->position;
+	//printf("ul %f %f\nlr %f %f\npos %f %f\n----------------",ul.x,ul.y,lr.x,lr.y, position.x, position.y );
+	this->position = position;
 }
 
-Collider::Collider(float r)
+bool Collider::checkCollision(Collider* other)
 {
-    this->r = r;
+	return !(ul.x > other->lr.x || ul.y > other->lr.y || lr.x < other->ul.x || lr.y < other->ul.y);
 }
-

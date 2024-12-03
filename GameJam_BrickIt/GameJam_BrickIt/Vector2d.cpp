@@ -83,7 +83,7 @@ Vector2d Vector2d::getNormalized()
 
 void Vector2d::normalize()
 {
-	x = x / this->getMagnitude();
+	x = x / this->getMagnitude();;
 	y = y / this->getMagnitude();
 }
 

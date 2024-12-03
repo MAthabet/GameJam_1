@@ -9,7 +9,7 @@ public:
 
 	Vector2d();
 	Vector2d(float x, float y);
-	Vector2d operator+(Vector2d other);
+	Vector2d operator+(Vector2d othe);
 	Vector2d operator-(Vector2d other);
 	Vector2d operator+=(Vector2d other);
 	Vector2d operator-=(Vector2d other);

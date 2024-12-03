@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <list>
+#include "FallingItem.h"
 
 class Renderer
 {
 private:
-	std::list<sf::Sprite*> drawables;
+	std::vector<FallingItem>* items;
 public:
-	void AddDrawable(sf::Sprite* drawable);
+	Renderer(std::vector<FallingItem>* items);
+	//void AddDrawable(sf::Sprite* sprite);
 	void Render(sf::RenderWindow* window);
 };

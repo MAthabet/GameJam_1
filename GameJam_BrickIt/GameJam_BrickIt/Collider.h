@@ -1,16 +1,15 @@
 #pragma once
 #include "Vector2d.h"
-#include <iostream>
 
-using namespace std;
 class Collider
 {
 public:
-	float r;
-	Vector2d center;
+	Vector2d ul;
+	Vector2d lr;
+	Vector2d position;
 
-	virtual bool checkCollision(Collider* other);
-	virtual void updatePosition(Vector2d position);
-	Collider(float r);
+	void initCollider(Vector2d ul, Vector2d lr);
+	void updatePosition(Vector2d position);
+	bool checkCollision(Collider* other);
 };
 
