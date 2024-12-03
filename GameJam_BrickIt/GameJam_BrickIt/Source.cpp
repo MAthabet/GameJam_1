@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "MainMenu.h"
 #include "Game.h"
+#include <SFML/Audio.hpp>
 
 int main()
 {
@@ -13,6 +14,15 @@ int main()
     MainMenu mainMenu;
     mainMenu.start();
 
+    sf::SoundBuffer buffer;
+
+            
+    buffer.loadFromFile("./resources/Audio/loop.mp3");
+    sf::Sound loop;
+    loop.setBuffer(buffer);
+    loop.setLoop(true);
+    loop.play();
+    loop.setVolume(50);
     window.setMouseCursorVisible(flag);
     window.setMouseCursorGrabbed(!flag);
 

@@ -5,3 +5,5 @@ const char walkingFlipped_path[] = "./resources/Sheets/flippedWalking.png";
 const char idle_path[] = "./resources/Sheets/idle.png";
 const char idleFlipped_path[] = "./resources/Sheets/flippedIdle.png";
 const char gameOver_path[] = "./resources/gameOver.png";
+const char shopImagePath[] = "./resources/SHOP_SHEET.png";
+const char coinsFile[] = "./resources/coins.txt";

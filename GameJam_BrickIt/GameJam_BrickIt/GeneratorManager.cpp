@@ -15,8 +15,8 @@ void Generator::generate(sf::Texture* spritesheet)
 		int x = rand() % 801 + 200;
 		sf::Sprite sprite(*spritesheet, rectsData[i]);
         ItemType a;
-        if (i < 3) a = junk;
-        else if (i < 6) a = healthy;
+        if (i < 3) a = healthy;
+        else if (i < 6) a = junk;
         else a = shroom;
 		items.push_back(FallingItem(a, sprite));
 		items[items.size() - 1].sprite.setOrigin(rectsData[i].width,rectsData[i].height);

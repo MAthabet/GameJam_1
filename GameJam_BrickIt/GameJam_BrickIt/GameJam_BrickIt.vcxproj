@@ -144,7 +144,6 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Shop.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Vector2d.cpp" />
   </ItemGroup>

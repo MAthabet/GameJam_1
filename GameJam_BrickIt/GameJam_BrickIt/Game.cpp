@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GeneratorManager.h"
 #include "CollisionManager.h"
+#include "SFML/Audio.hpp"
 #include "Player.h"
 #include "Renderer.h"
 #include "FallingItem.h"
@@ -12,6 +13,11 @@
 
 bool Game::run(sf::RenderWindow* win)
 {
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("./resources/Audio/gameStart.mp3");
+    sf::Sound start;
+    start.setBuffer(buffer);
+    start.play();
 	init(win);
 	loop(win);
     if (end(win)) loop(win);
@@ -32,6 +38,12 @@ void Game::loop(sf::RenderWindow* win)
 	CollisionManager collisionMngr(&generator.items);
 	Renderer renderer(&generator.items);
 
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("./resources/Audio/Bite.mp3");
+
+    sf::Sound bite;
+    bite.setBuffer(buffer);
+    bite.setPlayingOffset(sf::seconds(1.2f));
     Player player;
 
     sf::Texture idle;
@@ -94,6 +106,8 @@ void Game::loop(sf::RenderWindow* win)
     if (!shader.loadFromFile("trippy_shader.frag", sf::Shader::Fragment)) {
         printf("can not load trippy_shader.frag");
     }
+
+    sf::Clock tripClk;
 
     while (win->isOpen())
     {
@@ -164,18 +178,24 @@ void Game::loop(sf::RenderWindow* win)
         {
         case healthy:
             player.score += 10;
+            bite.play();
             break;
         case junk:
             player.health--;
+            bite.play();
             break;
         case shroom:
             player.isTripped = true;
+            bite.play();
             player.score += 50;
+            tripClk.restart();
             break;
         }
         if (player.health < 1)
             break;
-
+        if (player.isTripped)
+            if (tripClk.getElapsedTime().asSeconds() > 5)
+                player.isTripped = false;
         float playerX = player.collider.lr.x;
         float cameraX = playerX;
 
@@ -190,22 +210,21 @@ void Game::loop(sf::RenderWindow* win)
         else
         win->draw(backGround);
         player.frame.setScale(PLAYER_SCALE, PLAYER_SCALE);
-        renderer.Render(win);
         win->draw(player.frame);
         for (int i = 0; i < player.health; i++)
         {
             win->draw(heart);
             heart.setPosition(0+i*20, 0);
         }
-        win->setView(win->getDefaultView());
         for (int i = player.health; i < 5; i++)
         {
             empHeart.setPosition(player.health*20 + i * 20, 0);
             win->draw(empHeart);
         }
+        renderer.Render(win);
             win->display();
             win->setView(camera);
-        if (player.health <= 0)
+        if (player.health >= 0)
         {
             return;
         }
@@ -214,6 +233,13 @@ void Game::loop(sf::RenderWindow* win)
 
 bool Game::end(sf::RenderWindow* win)
 {
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("./resources/Audio/gameOver.mp3");
+    sf::Sound gameOver;
+    gameOver.setBuffer(buffer);
+
+    gameOver.play();
+    sf::sleep(sf::milliseconds(3000));
     return false;
 }
 

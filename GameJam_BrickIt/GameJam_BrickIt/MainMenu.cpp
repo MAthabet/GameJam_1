@@ -1,5 +1,5 @@
 #include "MainMenu.h"
-
+#include "shop.h"
 void MainMenu::start()
 {
     if (!mainMenuTex.loadFromFile("./resources/MainMenu.png")) {
@@ -31,7 +31,7 @@ bool MainMenu::loop(sf::RenderWindow* win)
         case Start:
             return true;
         case Shop:
-            //TODO
+            renderShop(*win, shopImagePath, coinsFile);
             break;
         case Exit:
             close(win);
