@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "shop.h"
+#include <SFML/Audio.hpp>
 void MainMenu::start()
 {
     if (!mainMenuTex.loadFromFile("./resources/MainMenu.png")) {
@@ -57,6 +58,13 @@ void MainMenu::close(sf::RenderWindow* win)
 
 bool MainMenu::gameOver(sf::RenderWindow* win, sf::View* defView)
 {
+    sf::SoundBuffer buffer;
+    buffer.loadFromFile("./resources/Audio/gameOver.mp3");
+    sf::Sound gameover;
+    gameover.setBuffer(buffer);
+
+    gameover.play();
+
     win->setView(*defView);
     sf::Texture gameOver;
     if (!gameOver.loadFromFile(gameOver_path)) 
@@ -66,6 +74,7 @@ bool MainMenu::gameOver(sf::RenderWindow* win, sf::View* defView)
     sf::Sprite gameoverWin(gameOver);
     gameoverWin.setTexture(gameOver);
     gameoverWin.setPosition(0, 0);
+    
     while (win->isOpen())
     {
         // Check for all window events

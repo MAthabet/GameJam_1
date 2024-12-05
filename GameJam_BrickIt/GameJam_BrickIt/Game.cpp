@@ -80,11 +80,11 @@ void Game::loop(sf::RenderWindow* win)
 
     Animation idleANim (&idle, sf::Vector2u(4, 1), 0.2*1.5);
 
-    Animation walkingAnim(&walking, sf::Vector2u(8, 1), 0.2);
+    Animation walkingAnim(&walking, sf::Vector2u(8, 1), 0.1);
 
     Animation flipidleANim(&idleFlipped, sf::Vector2u(4, 1), 0.2 * 1.5);
 
-    Animation flipwalkingAnim(&walkingFlipped, sf::Vector2u(8, 1), 0.2);
+    Animation flipwalkingAnim(&walkingFlipped, sf::Vector2u(8, 1), 0.1);
 
     float deltaTime;
     sf::Clock clock;
@@ -250,13 +250,6 @@ void Game::loop(sf::RenderWindow* win)
 
 bool Game::end(sf::RenderWindow* win)
 {
-    sf::SoundBuffer buffer;
-    buffer.loadFromFile("./resources/Audio/gameOver.mp3");
-    sf::Sound gameOver;
-    gameOver.setBuffer(buffer);
-
-    gameOver.play();
-    sf::sleep(sf::milliseconds(3000));
     return false;
 }
 

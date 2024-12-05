@@ -22,7 +22,7 @@ int main()
     loop.setBuffer(buffer);
     loop.setLoop(true);
     loop.play();
-    loop.setVolume(50);
+    loop.setVolume(30);
     window.setMouseCursorVisible(flag);
     window.setMouseCursorGrabbed(!flag);
 
