@@ -5,6 +5,7 @@
 #include "MainMenu.h"
 #include "Game.h"
 #include <SFML/Audio.hpp>
+#include "Animation.h"
 
 int main()
 {
@@ -30,7 +31,8 @@ int main()
     Game game;
     while (window.isOpen())
     {
-        // Check for all window events
+        // Check for all window eventssf::Texture idle;
+
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -55,6 +57,7 @@ int main()
         }
         else
             isGameRunning = mainMenu.loop(&window);
+
     }
     return 0;
 }

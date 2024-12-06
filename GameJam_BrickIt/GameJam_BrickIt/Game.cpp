@@ -150,6 +150,7 @@ void Game::loop(sf::RenderWindow* win)
         if (player.handleInput())
         {
                 sf::Vector2f pos = player.frame.getPosition();
+                pos.y = PLATFORM_POSITION - 190;
             if (!player.isFlibbed)
             {
                 walkingAnim.Update(0, 1.0f/FPS);
@@ -170,6 +171,7 @@ void Game::loop(sf::RenderWindow* win)
         else
         {
                 sf::Vector2f pos = player.frame.getPosition();
+                pos.y = PLATFORM_POSITION - 180;
             if (!player.isFlibbed)
             {
                 idleANim.Update(0, 1.0f / FPS);

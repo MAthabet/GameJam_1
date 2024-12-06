@@ -98,8 +98,8 @@
     <ClInclude Include="appConfjs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Shop.cpp">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

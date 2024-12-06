@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
 #include "ButtonsConfig.h"
-
+#include "Animation.h"
 #include "appConfjs.h"
 
 class MainMenu
@@ -17,8 +17,11 @@ public:
 private:
 	sf::Texture mainMenuTex;
 	sf::Texture cursorTex;
+    sf::Texture idle;
 	sf::Sprite cursor;
 	sf::Sprite mainMenu;
+    sf::RectangleShape frame;
+    Animation idleAnim;
 	bool exit = false;
 
 	Buttons buttonIsPressed(sf::Vector2f clkPos);

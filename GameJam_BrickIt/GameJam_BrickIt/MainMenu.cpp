@@ -1,5 +1,6 @@
 #include "MainMenu.h"
-#include "shop.h"
+#include "shop.cpp"
+
 #include <SFML/Audio.hpp>
 void MainMenu::start()
 {
@@ -18,11 +19,19 @@ void MainMenu::start()
     cursor.setScale(2,2);
     cursor.setRotation(CURSOR_ROTATION);
     cursor.setOrigin(2,2);
+
+    idle.loadFromFile("./resources/Sheets/idle_mm.png");
+
+    frame = sf::RectangleShape(sf::Vector2f(idle.getSize().x / 4, idle.getSize().y / 1));
+
+    idleAnim.updateAnimation(&idle, sf::Vector2u(4, 1), 0.2 * 1.5);
+
+    frame.setTexture(&idle);
 }
 
 bool MainMenu::loop(sf::RenderWindow* win)
 {
-    cursor.setPosition(sf::Mouse::getPosition(*win).x, sf::Mouse::getPosition(*win).y);
+    cursor.setPosition(sf::Mouse::getPosition(*win).x-40, sf::Mouse::getPosition(*win).y+5);
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
         sf::Vector2i pixelPos = sf::Mouse::getPosition(*win);
@@ -42,11 +51,14 @@ bool MainMenu::loop(sf::RenderWindow* win)
 
         }
     }
+    idleAnim.Update(0, 1.0f / FPS);
+    frame.setTextureRect(idleAnim.uvRect);
+    frame.setPosition(500, 150);
+    frame.setScale(2.5, 2.4);
     win->clear();
-
     draw(win);
-
     win->display();
+
     return false;
 }
 
@@ -117,6 +129,7 @@ bool MainMenu::gameOver(sf::RenderWindow* win, sf::View* defView)
 void MainMenu::draw(sf::RenderWindow* win)
 {
     win->draw(mainMenu);
+    win->draw(frame);
     win->draw(cursor);
 }
 
